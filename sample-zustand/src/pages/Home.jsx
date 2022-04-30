@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react'
 import logo from '../logo.svg'
 import '../App.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { setCount } from '../store/commonStore';
-import { setName } from '../store/memberStore';
+import CommonStore from '../store/common'
+import MemberStore from '../store/member';
 import { faker } from '@faker-js/faker';
 import { Link } from 'react-router-dom';
 
-function Home() {
-  const count = useSelector((state) => state.common.count);
-  const name = useSelector((state) => state.member.name);
-  const dispatch = useDispatch();
+function App() {
+  const commonStore = CommonStore();
+  const setCommonStore = CommonStore.setState;
+  const memberStore = MemberStore();
+  const setMemberStore = MemberStore.setState;
 
   useEffect(() => {
-    dispatch(setName(faker.name.firstName()));
+    console.log(commonStore);
+    setMemberStore({ name: faker.name.firstName() })
   }, []);
 
   return (
@@ -22,12 +23,12 @@ function Home() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p>
-          <button type="button" onClick={() => dispatch(setCount(count + 1))}>
-            count is: {count}
+          <button type="button" onClick={() => setCommonStore({ count: commonStore.count + 1 }) }>
+            count is: { commonStore.count }
           </button>
         </p>
         <p>
-          name is: { name }
+          name is : { memberStore.name }
         </p>
         <Link to="/Result"><div>Go to result</div></Link>
         <p>
@@ -57,4 +58,4 @@ function Home() {
   )
 }
 
-export default Home
+export default App
