@@ -3,7 +3,7 @@ import logo from '../logo.svg';
 import CommonStore from '../store/common';
 import MemberStore from '../store/member';
 
-function App() {
+function Result() {
   const commonStore = CommonStore();
   const memberStore = MemberStore();
 
@@ -45,4 +45,4 @@ function App() {
   )
 }
 
-export default App
+export default Result

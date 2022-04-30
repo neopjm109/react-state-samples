@@ -6,7 +6,7 @@ import MemberStore from '../store/member';
 import { faker } from '@faker-js/faker';
 import { Link } from 'react-router-dom';
 
-function App() {
+function Home() {
   const commonStore = CommonStore();
   const setCommonStore = CommonStore.setState;
   const memberStore = MemberStore();
@@ -58,4 +58,4 @@ function App() {
   )
 }
 
-export default App
+export default Home
