@@ -1,9 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCount } from './store/commonStore';
+import { setName } from './store/memberStore';
+import { faker } from '@faker-js/faker';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const count = useSelector((state) => state.common.count);
+  const name = useSelector((state) => state.member.name);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setName(faker.name.firstName()));
+  }, []);
 
   return (
     <div className="App">
@@ -11,9 +21,12 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
+          <button type="button" onClick={() => dispatch(setCount(count + 1))}>
             count is: {count}
           </button>
+        </p>
+        <p>
+          name is: { name }
         </p>
         <p>
           Edit <code>App.jsx</code> and save to test HMR updates.
