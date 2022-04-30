@@ -1,9 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import CommonStore from './store/common'
+import MemberStore from './store/member';
+import { faker } from '@faker-js/faker';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const commonStore = CommonStore();
+  const setCommonStore = CommonStore.setState;
+  const memberStore = MemberStore();
+  const setMemberStore = MemberStore.setState;
+
+  useEffect(() => {
+    console.log(commonStore);
+    setMemberStore({ name: faker.name.firstName() })
+  }, []);
 
   return (
     <div className="App">
@@ -11,9 +22,12 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
+          <button type="button" onClick={() => setCommonStore({ zuCount: commonStore.count + 1 }) }>
+            count is: { commonStore.count }
           </button>
+        </p>
+        <p>
+          name is : { memberStore.name }
         </p>
         <p>
           Edit <code>App.jsx</code> and save to test HMR updates.
